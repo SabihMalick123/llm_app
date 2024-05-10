@@ -1,0 +1,13 @@
+unstructured==0.13.5
+pypdf==4.2.0
+openpyxl==3.1.2
+pypdfium2==4.29.0
+docx2txt==0.8
+streamlit
+langchain==0.1.16
+langchain-community==0.0.34
+replicate==0.25.2
+langchain-core==0.1.46
+langchain-openai==0.1.6
+fastembed==0.2.7
+qdrant-client==1.9.1
