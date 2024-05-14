@@ -19,7 +19,7 @@ models = {
     "Llama2-7B": "meta/llama-2-7b-chat"
 }
 
-os.environ['REPLICATE_API_TOKEN'] = "r8_6uNCvH56JN83QnEq3q0EEoooO9UZJUy0NOhmq"
+os.environ['REPLICATE_API_TOKEN'] = "r8_1C6Ch8IUEXCHpnv5zF25jXCeYwAeLDP3zWjM6"
 
 def select_model():
     return st.sidebar.selectbox('Choose a Model', list(models.keys()))
