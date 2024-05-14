@@ -3,7 +3,6 @@ from ollama_model import embedding_model
 import replicate
 from langchain_community.vectorstores import Qdrant
 
-api = replicate.Client(api_token=os.environ["REPLICATE_API_TOKEN"])
 def generate_llama2_response(context,question,model_name):
     formatted_prompt =  f"""
                 Answer the question as detailed as possible from the provided context, make sure to provide all the details, if the answer is not in
@@ -20,7 +19,7 @@ def generate_llama2_response(context,question,model_name):
             formatted_prompt += "User: " + dict_message["content"] + "\n\n"
         else:
             formatted_prompt += "Assistant: " + dict_message["content"] + "\n\n"
-    output = api.run(model_name, 
+    output = replicate.run(model_name, 
                            input={"prompt": f"{formatted_prompt} Assistant: ","repetition_penalty":1,"max_length":1024})
 
     return output
