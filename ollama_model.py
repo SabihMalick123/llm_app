@@ -24,7 +24,7 @@ def document_loader(folder_path):
 
 def embedding_model():
 
-    embeddings = FastEmbedEmbeddings(model_name="mixedbread-ai/mxbai-embed-large-v1")
+    embeddings = FastEmbedEmbeddings(model_name="BAAI/bge-small-en-v1.5")
 
     return embeddings
 

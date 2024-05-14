@@ -6,7 +6,7 @@ import streamlit.components.v1 as components
 import time
 from ollama_model import document_loader, embedding_model, vector_db
 from retriever import response
-
+import random
 
 
 st.set_page_config(page_title="🦙💬 Climate Change LLM")
@@ -19,7 +19,7 @@ models = {
     "Llama2-7B": "meta/llama-2-7b-chat"
 }
 
-os.environ['REPLICATE_API_TOKEN'] = "r8_2OkNOWLgADlyBlGPLl3AQy6LRamFWrl2X0oRI"
+os.environ['REPLICATE_API_TOKEN'] = "r8_55ERu6x9K28mzdgYY1iImEcG7V5oljG2itz0f"
 
 def select_model():
     return st.sidebar.selectbox('Choose a Model', list(models.keys()))
@@ -79,20 +79,21 @@ def main(initial):
         embeddings = embedding_model()
 
         # Create vector db
-        persist_directory = "chroma_db/d3"
-        vectordb=vector_db(all_splits, embeddings, persist_directory)
+        random_dir = "d" + str(random.randint(100, 999))
+        st.session_state.persist_directory = f"qdrant_db/{random_dir}"
+        vectordb=vector_db(all_splits, embeddings, st.session_state.persist_directory)
         b = st.success("Vector Database Loaded Successfully!", icon='✅')
         time.sleep(4)
         b.empty()
         st.session_state.retreiver = vectordb.as_retriever()
     if 'count' in st.session_state:
         prompt = st.chat_input("Type your message here")
-        persist_directory = "chroma_db/d3"
+        # persist_directory = "qdrant_db/d3"
         retriever = st.session_state.retreiver
         if prompt:
                 with st.chat_message("assistant"):
                     with st.spinner("Thinking..."):
-                        output = response(retriever, prompt, persist_directory, llm)
+                        output = response(retriever, prompt, st.session_state.persist_directory, llm)
                         placeholder = st.empty()
                         full_response = ''
                         for item in output:
